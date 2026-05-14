@@ -1,6 +1,6 @@
 const initialUsers = [
-    {id: 1, name: 'Aline Dias'},
-    {id: 2, name: 'Roberto Carlos'}
+    {id: 1, name: 'Aline Dias', completed: false, userId: 1},
+    {id: 2, name: 'Roberto Carlos', completed: false, userId: 2}
 ];
 
 const users = [...initialUsers]

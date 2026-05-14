@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const {users} = require('../data/usersData');
+const { users } = require('../data/usersData');
+const { tasks } = require('../data/tasksData');
 
 router.get('/', (req, res) => {
     res.json(users);
 })
 
 router.post('/', (req, res) => {
-    const { name} = req.body;
+    const { name } = req.body;
 
     if (!name) {
         return res.status(400).json({
@@ -23,5 +24,22 @@ router.post('/', (req, res) => {
     users.push(newUser);
     res.status(201).json(newUser);
 });
+
+router.get('/:id/tasks', (req, res) => {
+    const id = Number(req.params.id);
+
+    const user = users.find(user => user.id === id);
+
+    if (!user) {
+        return res.status(404).json({
+            error: 'Usuário não encontrado.',
+        });
+    }
+
+    const userTasks = tasks.filter(task => task.userId === id);
+
+    res.json(userTasks);
+
+})
 
 module.exports = router;
